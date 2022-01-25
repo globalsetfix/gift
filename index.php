@@ -1,9 +1,9 @@
 <?
 session_start();
-define('DB_HOST', 'localhost');
-define('DB_USER', 'user_gift');
-define('DB_PASSWORD', 'i6^6fnC3');
-define('DB_BASE_NAME', 'db_gift');
+define('DB_HOST', 'db23.freehost.com.ua');
+define('DB_USER', 'giftprint_db');
+define('DB_PASSWORD', 'Y4FOn42ZX');
+define('DB_BASE_NAME', 'giftprint_db');
 try {
     $db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_BASE_NAME, DB_USER, DB_PASSWORD);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -16,9 +16,8 @@ catch (PDOException $e) {
 $productsList = $db->query("SELECT * FROM `products` WHERE `visib` = 1 ORDER By `rating` ASC")->fetchAll();
 $menuList = $db->query("SELECT * FROM `pages` WHERE `visib` = 1 ORDER By `rating` ASC")->fetchAll();
 
-if(isset($_SESSION['cart']) AND count($_SESSION['cart'])>0):
-   $total_cart = ' (<b>' . count($_SESSION['cart']) . '</b>)';
-endif;
+$total_cart = (isset($_SESSION['cart'])) ? '(<b>' . count($_SESSION['cart']) . '</b>)' : '';
+
 
 if(isset($_GET['route'])):
   $route = explode('/',$_GET['route']);
